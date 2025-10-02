@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { Download, ArrowDown } from 'lucide-react';
+import { Download, ArrowDown, Code2, FileCode, Braces, Cog, Database, FileJson } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { FloatingIcons } from '@/components/FloatingIcons';
 import heroBg from '@/assets/hero-bg.jpg';
 
 export const Hero = () => {
@@ -30,28 +31,8 @@ export const Hero = () => {
       {/* Animated background overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 animate-gradient-shift bg-[length:400%_400%]" />
       
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-white/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.8, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
+      {/* Floating tech icons */}
+      <FloatingIcons icons={[Code2, FileCode, Braces, Cog, Database, FileJson]} count={20} />
 
       <div className="container mx-auto px-4 z-10">
         <motion.div

@@ -3,8 +3,9 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Smartphone, Palette, Monitor, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { FloatingIcons } from '@/components/FloatingIcons';
 
 const projects = [
   {
@@ -63,8 +64,9 @@ export const Projects = () => {
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <section id="projects" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section id="projects" className="py-20 bg-muted/30 relative">
+      <FloatingIcons icons={[Github, Monitor, Smartphone, Palette, Sparkles]} count={12} />
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}

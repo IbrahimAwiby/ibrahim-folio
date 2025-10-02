@@ -3,18 +3,20 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { FloatingIcons } from '@/components/FloatingIcons';
+import { FileCode2, Palette, Code, Box, Component, Layers, Database, Wifi, FileType, Wind, LucideIcon } from 'lucide-react';
 
-const skills = [
-  { name: 'HTML', level: 95, color: 'from-orange-500 to-orange-600' },
-  { name: 'CSS', level: 90, color: 'from-blue-500 to-blue-600' },
-  { name: 'JavaScript', level: 88, color: 'from-yellow-400 to-yellow-500' },
-  { name: 'Bootstrap', level: 85, color: 'from-purple-500 to-purple-600' },
-  { name: 'React', level: 90, color: 'from-cyan-400 to-cyan-500' },
-  { name: 'Next.js', level: 85, color: 'from-gray-700 to-gray-900' },
-  { name: 'Redux', level: 80, color: 'from-purple-600 to-purple-700' },
-  { name: 'Axios', level: 85, color: 'from-blue-600 to-blue-700' },
-  { name: 'TypeScript', level: 82, color: 'from-blue-500 to-blue-600' },
-  { name: 'Tailwind CSS', level: 92, color: 'from-teal-400 to-teal-500' },
+const skills: { name: string; level: number; gradient: string; icon: LucideIcon }[] = [
+  { name: 'HTML', level: 95, gradient: 'from-orange-500 to-orange-600', icon: FileCode2 },
+  { name: 'CSS', level: 90, gradient: 'from-blue-500 to-blue-600', icon: Palette },
+  { name: 'JavaScript', level: 88, gradient: 'from-yellow-400 to-yellow-500', icon: Code },
+  { name: 'Bootstrap', level: 85, gradient: 'from-purple-500 to-purple-600', icon: Box },
+  { name: 'React', level: 90, gradient: 'from-cyan-400 to-cyan-500', icon: Component },
+  { name: 'Next.js', level: 85, gradient: 'from-gray-700 to-gray-900', icon: Layers },
+  { name: 'Redux', level: 80, gradient: 'from-purple-600 to-purple-700', icon: Database },
+  { name: 'Axios', level: 85, gradient: 'from-blue-600 to-blue-700', icon: Wifi },
+  { name: 'TypeScript', level: 82, gradient: 'from-blue-500 to-blue-600', icon: FileType },
+  { name: 'Tailwind CSS', level: 92, gradient: 'from-teal-400 to-teal-500', icon: Wind },
 ];
 
 export const Skills = () => {
@@ -23,8 +25,9 @@ export const Skills = () => {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section id="skills" className="py-20">
-      <div className="container mx-auto px-4">
+    <section id="skills" className="py-20 relative">
+      <FloatingIcons icons={skills.map(s => s.icon)} count={15} />
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
@@ -36,27 +39,49 @@ export const Skills = () => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
-                <Card className="p-6 glass-effect border-primary/20 hover:border-primary/40 transition-all card-hover">
-                  <h3 className="text-xl font-semibold mb-4">{skill.name}</h3>
-                  <div className="relative h-3 bg-muted rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={isInView ? { width: `${skill.level}%` } : {}}
-                      transition={{ delay: index * 0.1 + 0.3, duration: 1, ease: "easeOut" }}
-                      className={`absolute inset-y-0 left-0 bg-gradient-to-r ${skill.color} rounded-full`}
-                    />
-                  </div>
-                  <p className="text-sm text-muted-foreground mt-2 text-right">{skill.level}%</p>
-                </Card>
-              </motion.div>
-            ))}
+            {skills.map((skill, index) => {
+              const Icon = skill.icon;
+              return (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                >
+                  <Card className="relative overflow-hidden p-6 glass-effect border-primary/20 hover:border-primary/40 transition-all group h-full">
+                    {/* Gradient background on hover */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${skill.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                    
+                    {/* Icon */}
+                    <div className={`relative w-14 h-14 rounded-xl bg-gradient-to-br ${skill.gradient} p-3 mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className="w-full h-full text-white" />
+                    </div>
+                    
+                    {/* Skill name */}
+                    <h3 className="relative text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                      {skill.name}
+                    </h3>
+                    
+                    {/* Progress bar */}
+                    <div className="relative">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm text-muted-foreground">Proficiency</span>
+                        <span className="text-sm font-semibold">{skill.level}%</span>
+                      </div>
+                      <div className="relative h-2 bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={isInView ? { width: `${skill.level}%` } : {}}
+                          transition={{ delay: index * 0.1 + 0.3, duration: 1, ease: "easeOut" }}
+                          className={`absolute inset-y-0 left-0 bg-gradient-to-r ${skill.gradient} rounded-full shadow-lg`}
+                        />
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

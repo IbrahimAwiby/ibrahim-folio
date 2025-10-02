@@ -3,6 +3,8 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { FloatingIcons } from '@/components/FloatingIcons';
+import { GraduationCap, BookOpen, Award, Lightbulb, Target, Brain } from 'lucide-react';
 import profileImg from '@/assets/profile.jpg';
 
 export const About = () => {
@@ -11,8 +13,9 @@ export const About = () => {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section id="about" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section id="about" className="py-20 bg-muted/30 relative">
+      <FloatingIcons icons={[GraduationCap, BookOpen, Award, Lightbulb, Target, Brain]} count={12} />
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
