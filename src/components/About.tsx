@@ -88,26 +88,15 @@ export const About = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10 w-full max-w-full">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.3 }}
-          className="w-full"
-        >
+        <div ref={ref} className="w-full">
           {/* Header Section */}
           <div className="text-center mb-12 md:mb-16 w-full px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-2 bg-primary/10 rounded-full border border-primary/20 mb-4 md:mb-6"
-            >
+            <div className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-2 bg-primary/10 rounded-full border border-primary/20 mb-4 md:mb-6">
               <Zap className="h-3 w-3 md:h-4 md:w-4 text-primary" />
               <span className="text-xs md:text-sm font-medium text-primary">
                 About Me
               </span>
-            </motion.div>
+            </div>
 
             <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 gradient-text">
               Crafting Digital Excellence
@@ -456,7 +445,7 @@ export const About = () => {
               </div>
             </Card>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

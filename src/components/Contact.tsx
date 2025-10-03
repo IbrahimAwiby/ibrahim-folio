@@ -182,13 +182,7 @@ export const Contact = () => {
         count={12}
       />
       <div className="container mx-auto px-4 relative z-10 w-full max-w-full">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.3 }}
-          className="w-full"
-        >
+        <div ref={ref} className="w-full">
           <div className="text-center mb-16 w-full">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
               Get In Touch
@@ -466,7 +460,7 @@ export const Contact = () => {
               </Card>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

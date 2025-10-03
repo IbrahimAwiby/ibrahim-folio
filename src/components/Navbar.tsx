@@ -374,7 +374,6 @@ export const Navbar = () => {
                     download="IbrahimHassanResume1.pdf"
                   >
                     <Button
-                      onClick={() => window.open("/cv.pdf", "_blank")}
                       className={`w-full py-6 text-lg md:text-xl font-semibold transition-all ${
                         isScrolled
                           ? "bg-gradient-to-r from-primary to-secondary text-white"

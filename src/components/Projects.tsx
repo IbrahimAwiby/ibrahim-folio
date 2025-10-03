@@ -82,12 +82,7 @@ export const Projects = () => {
         count={12}
       />
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.3 }}
-        >
+        <div ref={ref}>
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
               My Projects
@@ -201,7 +196,7 @@ export const Projects = () => {
               </Button>
             </Card>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
