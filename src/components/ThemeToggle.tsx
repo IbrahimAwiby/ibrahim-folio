@@ -227,15 +227,16 @@ export const ThemeToggle = () => {
 
       {/* Modern tooltip */}
       <motion.div
-        className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-primary to-secondary text-white px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap opacity-0 pointer-events-none"
+        className="absolute top-full mt-3 -left-3/4 transform -translate-x-1/2 bg-background border border-border text-foreground px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap opacity-0 pointer-events-none z-50 shadow-lg"
         variants={{
-          initial: { opacity: 0, y: 10 },
+          initial: { opacity: 0, y: -10 },
           hover: { opacity: 1, y: 0 },
         }}
         transition={{ duration: 0.2 }}
       >
-        {theme === "light" ? "Dark mode" : "Light mode"}
-        <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-primary rotate-45" />
+        {theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+        {/* Tooltip arrow pointing upward */}
+        <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-background border-t border-l border-border rotate-45" />
       </motion.div>
     </motion.div>
   );
