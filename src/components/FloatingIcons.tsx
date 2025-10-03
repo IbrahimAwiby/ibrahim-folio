@@ -14,7 +14,7 @@ export const FloatingIcons = ({ icons, count = 15 }: FloatingIconsProps) => {
         return (
           <motion.div
             key={i}
-            className="absolute text-primary/10 dark:text-primary/5"
+            className="absolute"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
