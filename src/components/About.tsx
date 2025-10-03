@@ -20,7 +20,7 @@ import {
   Download,
   ExternalLink,
 } from "lucide-react";
-import profileImg from "@/assets/profile.jpg";
+import profileImg from "../../public/assets/profile.jpg";
 
 export const About = () => {
   const ref = useRef(null);

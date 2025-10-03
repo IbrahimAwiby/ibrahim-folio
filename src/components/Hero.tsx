@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FloatingIcons } from "@/components/FloatingIcons";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "../../public/assets/hero-bg.jpg";
 import { useEffect, useState } from "react";
 
 export const Hero = () => {
