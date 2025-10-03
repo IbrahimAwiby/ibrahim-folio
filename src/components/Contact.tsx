@@ -201,9 +201,29 @@ export const Contact = () => {
                     </div>
                   </a>
 
+                  {/* Phone - Opens WhatsApp */}
+                  <a
+                    href="https://wa.me/201555825248?text=Hello%20Ibrahim,%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/20 w-full"
+                  >
+                    <div className="p-2 md:p-3 bg-gradient-to-br from-secondary to-accent rounded-full group-hover:scale-110 transition-all shadow-lg flex-shrink-0">
+                      <MessageSquare className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm text-muted-foreground">
+                        Phone / WhatsApp
+                      </p>
+                      <p className="font-medium text-foreground text-sm md:text-base">
+                        +20 155 582 5248
+                      </p>
+                    </div>
+                  </a>
+
                   {/* Alternative: Regular phone call link */}
                   <a
-                    href="tel:+201555825248"
+                    href="tel:+201031071411"
                     className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/20 w-full"
                   >
                     <div className="p-2 md:p-3 bg-gradient-to-br from-accent to-primary rounded-full group-hover:scale-110 transition-all shadow-lg flex-shrink-0">
@@ -214,7 +234,7 @@ export const Contact = () => {
                         Direct Call
                       </p>
                       <p className="font-medium text-foreground text-sm md:text-base">
-                        +20 155 582 5248
+                        +20 103 107 1411
                       </p>
                     </div>
                   </a>
@@ -227,20 +247,6 @@ export const Contact = () => {
                       <p className="text-sm text-muted-foreground">Location</p>
                       <p className="font-medium text-foreground text-sm md:text-base">
                         Egypt
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg border border-transparent w-full">
-                    <div className="p-2 md:p-3 bg-muted rounded-full flex-shrink-0">
-                      <Clock className="h-5 w-5 md:h-6 md:w-6 text-muted-foreground" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm text-muted-foreground">
-                        Response Time
-                      </p>
-                      <p className="font-medium text-foreground text-sm md:text-base">
-                        Within 24 hours
                       </p>
                     </div>
                   </div>

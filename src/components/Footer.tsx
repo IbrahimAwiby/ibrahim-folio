@@ -50,8 +50,6 @@ const socialLinks = [
 ];
 
 export const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -173,7 +171,7 @@ export const Footer = () => {
                 by Ibrahim Hassan
               </p>
               <p className="text-sm text-muted-foreground">
-                © {currentYear} Ibrahim Hassan. All rights reserved.
+                © 10/3/2025 Ibrahim Hassan. All rights reserved.
               </p>
             </motion.div>
 
