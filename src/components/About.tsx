@@ -109,18 +109,10 @@ export const About = () => {
           </div>
 
           {/* Stats Grid */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-16 max-w-4xl mx-auto w-full"
-          >
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-16 max-w-4xl mx-auto w-full">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ delay: 0.4 + index * 0.1 }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
                 className="w-full"
               >
@@ -137,19 +129,14 @@ export const About = () => {
                 </Card>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Main Content */}
           <div className="max-w-6xl mx-auto w-full">
             <Card className="glass-effect border-primary/20 shadow-glow overflow-hidden w-full">
               <div className="grid lg:grid-cols-2 gap-0 w-full">
                 {/* Image Section */}
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.3, duration: 0.3 }}
-                  className="relative p-6 md:p-8 lg:p-12 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 w-full"
-                >
+                <div className="relative p-6 md:p-8 lg:p-12 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 w-full">
                   <div className="relative w-full">
                     {/* Animated background elements */}
                     <div className="absolute -top-4 -left-4 md:-top-8 md:-left-8 w-20 h-20 md:w-32 md:h-32 bg-primary/10 rounded-full blur-2xl" />
@@ -157,18 +144,7 @@ export const About = () => {
 
                     {/* Profile Image */}
                     <div className="relative flex justify-center">
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-accent rounded-2xl md:rounded-3xl blur-xl md:blur-2xl opacity-50 max-w-[280px] md:max-w-[320px] mx-auto"
-                        animate={{
-                          scale: [1, 1.05, 1],
-                          opacity: [0.4, 0.6, 0.4],
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                      />
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-accent rounded-2xl md:rounded-3xl blur-xl md:blur-2xl opacity-50 max-w-[280px] md:max-w-[320px] mx-auto" />
                       <img
                         src={profileImg}
                         alt="Ibrahim Hassan"
@@ -210,12 +186,7 @@ export const About = () => {
                   </div>
 
                   {/* Quick Info */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.5 }}
-                    className="mt-6 md:mt-8 grid grid-cols-2 gap-3 md:gap-4 text-center max-w-xs mx-auto"
-                  >
+                  <div className="mt-6 md:mt-8 grid grid-cols-2 gap-3 md:gap-4 text-center max-w-xs mx-auto">
                     <div className="p-3 md:p-4 bg-white/5 rounded-xl border border-white/10">
                       <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto mb-1 md:mb-2" />
                       <div className="text-xs md:text-sm font-medium text-foreground">
@@ -234,16 +205,11 @@ export const About = () => {
                         Experience
                       </div>
                     </div>
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
 
                 {/* Content Section */}
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.5, duration: 0.4 }}
-                  className="p-6 md:p-8 lg:p-12 w-full"
-                >
+                <div className="p-6 md:p-8 lg:p-12 w-full">
                   {/* Tab Navigation */}
                   <div className="flex gap-1 md:gap-2 mb-6 md:mb-8 p-1 bg-muted/50 rounded-xl md:rounded-2xl w-full max-w-md mx-auto lg:mx-0">
                     {tabs.map((tab) => (
@@ -265,11 +231,7 @@ export const About = () => {
                   {/* Tab Content */}
                   <div className="space-y-4 md:space-y-6">
                     {activeTab === "about" && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
+                      <div>
                         <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 gradient-text">
                           My Story
                         </h3>
@@ -308,7 +270,7 @@ export const About = () => {
                             </span>
                           ))}
                         </div>
-                      </motion.div>
+                      </div>
                     )}
 
                     {activeTab === "skills" && (
@@ -441,7 +403,7 @@ export const About = () => {
                       View Work
                     </Button>
                   </motion.div>
-                </motion.div>
+                </div>
               </div>
             </Card>
           </div>

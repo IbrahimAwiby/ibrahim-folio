@@ -111,9 +111,6 @@ export const Skills = () => {
               return (
                 <motion.div
                   key={skill.name}
-                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
                   whileHover={{ y: -8, transition: { duration: 0.2 } }}
                 >
                   <Card className="relative overflow-hidden p-6 glass-effect border-primary/20 hover:border-primary/40 transition-all group h-full">
