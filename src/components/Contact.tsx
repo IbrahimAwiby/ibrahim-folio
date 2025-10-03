@@ -17,10 +17,10 @@ import {
   MessageSquare,
   AtSign,
   MapPin,
-  Clock,
 } from "lucide-react";
 import { FloatingIcons } from "@/components/FloatingIcons";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "emailjs-com";
 
 const socialLinks = [
   {
@@ -60,6 +60,13 @@ const socialLinks = [
   },
 ];
 
+// EmailJS configuration - using your keys from the original code
+const EMAILJS_CONFIG = {
+  SERVICE_ID: "service_tiq097u",
+  TEMPLATE_ID: "template_moqo5ae",
+  PUBLIC_KEY: "mLcn46caki8CPxF9t",
+};
+
 export const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
@@ -68,17 +75,19 @@ export const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    subject: "",
     message: "",
   });
   const [errors, setErrors] = useState({
     name: "",
     email: "",
+    subject: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateForm = () => {
-    const newErrors = { name: "", email: "", message: "" };
+    const newErrors = { name: "", email: "", subject: "", message: "" };
     let isValid = true;
 
     if (!formData.name.trim()) {
@@ -91,6 +100,11 @@ export const Contact = () => {
       isValid = false;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Invalid email address";
+      isValid = false;
+    }
+
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Subject is required";
       isValid = false;
     }
 
@@ -110,19 +124,33 @@ export const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
 
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for your message. I will get back to you soon!",
-      });
+      if (result.status === 200) {
+        toast({
+          title: "Message Sent Successfully!",
+          description:
+            "Thank you for your message. I will get back to you soon!",
+        });
 
-      // Reset form
-      setFormData({ name: "", email: "", message: "" });
-      setErrors({ name: "", email: "", message: "" });
+        // Reset form
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setErrors({ name: "", email: "", subject: "", message: "" });
+      }
     } catch (error) {
+      console.error("EmailJS Error:", error);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
@@ -183,11 +211,9 @@ export const Contact = () => {
                 <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
 
                 <div className="space-y-4 md:space-y-6 mb-6 md:mb-8">
-                  {/* Email - Opens Gmail */}
+                  {/* Email */}
                   <a
-                    href="https://mail.google.com/mail/?view=cm&fs=1&to=ibrabasm4456@gmail.com&su=Let's%20Connect&body=Hello%20Ibrahim,"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="mailto:ibrahimawiby@gmail.com"
                     className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/20 w-full"
                   >
                     <div className="p-2 md:p-3 bg-gradient-to-br from-primary to-secondary rounded-full group-hover:scale-110 transition-all shadow-lg flex-shrink-0">
@@ -196,14 +222,14 @@ export const Contact = () => {
                     <div className="min-w-0 flex-1">
                       <p className="text-sm text-muted-foreground">Email</p>
                       <p className="font-medium text-foreground text-sm md:text-base truncate">
-                        ibrabasm4456@gmail.com
+                        ibrahimawiby@gmail.com
                       </p>
                     </div>
                   </a>
 
-                  {/* Phone - Opens WhatsApp */}
+                  {/* Phone - WhatsApp */}
                   <a
-                    href="https://wa.me/201555825248?text=Hello%20Ibrahim,%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect."
+                    href="https://wa.me/201031071411?text=Hello%20Ibrahim,%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/20 w-full"
@@ -216,12 +242,12 @@ export const Contact = () => {
                         Phone / WhatsApp
                       </p>
                       <p className="font-medium text-foreground text-sm md:text-base">
-                        +20 155 582 5248
+                        +20 103 107 1411
                       </p>
                     </div>
                   </a>
 
-                  {/* Alternative: Regular phone call link */}
+                  {/* Direct Call */}
                   <a
                     href="tel:+201031071411"
                     className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/20 w-full"
@@ -239,6 +265,7 @@ export const Contact = () => {
                     </div>
                   </a>
 
+                  {/* Location */}
                   <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg border border-transparent w-full">
                     <div className="p-2 md:p-3 bg-muted rounded-full flex-shrink-0">
                       <MapPin className="h-5 w-5 md:h-6 md:w-6 text-muted-foreground" />
@@ -246,7 +273,20 @@ export const Contact = () => {
                     <div className="min-w-0 flex-1">
                       <p className="text-sm text-muted-foreground">Location</p>
                       <p className="font-medium text-foreground text-sm md:text-base">
-                        Egypt
+                        North Tower, Toronto, Canada
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Freelance Status */}
+                  <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg border border-transparent w-full">
+                    <div className="p-2 md:p-3 bg-green-500/20 rounded-full flex-shrink-0">
+                      <MessageSquare className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm text-muted-foreground">Freelance</p>
+                      <p className="font-medium text-green-600 text-sm md:text-base">
+                        Available Right Now
                       </p>
                     </div>
                   </div>
@@ -289,55 +329,83 @@ export const Contact = () => {
                   onSubmit={handleSubmit}
                   className="space-y-4 md:space-y-6 w-full"
                 >
-                  <div className="w-full">
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium mb-2 md:mb-3 text-foreground"
-                    >
-                      Your Name
-                    </label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Enter your full name"
-                      className={`w-full transition-all ${
-                        errors.name
-                          ? "border-red-500"
-                          : "border-border hover:border-primary/40"
-                      }`}
-                    />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm mt-1 md:mt-2 flex items-center gap-1">
-                        <span>⚠</span> {errors.name}
-                      </p>
-                    )}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
+                    <div className="w-full">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium mb-2 md:mb-3 text-foreground"
+                      >
+                        Your full Name <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Enter your full name"
+                        className={`w-full transition-all ${
+                          errors.name
+                            ? "border-red-500"
+                            : "border-border hover:border-primary/40"
+                        }`}
+                      />
+                      {errors.name && (
+                        <p className="text-red-500 text-sm mt-1 md:mt-2 flex items-center gap-1">
+                          <span>⚠</span> {errors.name}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="w-full">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium mb-2 md:mb-3 text-foreground"
+                      >
+                        Email Address <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="your.email@example.com"
+                        className={`w-full transition-all ${
+                          errors.email
+                            ? "border-red-500"
+                            : "border-border hover:border-primary/40"
+                        }`}
+                      />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1 md:mt-2 flex items-center gap-1">
+                          <span>⚠</span> {errors.email}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   <div className="w-full">
                     <label
-                      htmlFor="email"
+                      htmlFor="subject"
                       className="block text-sm font-medium mb-2 md:mb-3 text-foreground"
                     >
-                      Email Address
+                      Your Subject <span className="text-red-500">*</span>
                     </label>
                     <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
                       onChange={handleChange}
-                      placeholder="your.email@example.com"
+                      placeholder="What is this regarding?"
                       className={`w-full transition-all ${
-                        errors.email
+                        errors.subject
                           ? "border-red-500"
                           : "border-border hover:border-primary/40"
                       }`}
                     />
-                    {errors.email && (
+                    {errors.subject && (
                       <p className="text-red-500 text-sm mt-1 md:mt-2 flex items-center gap-1">
-                        <span>⚠</span> {errors.email}
+                        <span>⚠</span> {errors.subject}
                       </p>
                     )}
                   </div>
@@ -347,7 +415,7 @@ export const Contact = () => {
                       htmlFor="message"
                       className="block text-sm font-medium mb-2 md:mb-3 text-foreground"
                     >
-                      Your Message
+                      Your Message <span className="text-red-500">*</span>
                     </label>
                     <Textarea
                       id="message"
@@ -369,18 +437,24 @@ export const Contact = () => {
                     )}
                   </div>
 
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all py-4 md:py-6 text-base md:text-lg font-semibold relative overflow-hidden group"
-                    size="lg"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <Send className="mr-2 md:mr-3 h-4 w-4 md:h-5 md:w-5 relative z-10 group-hover:scale-110 transition-transform" />
-                    <span className="relative z-10">
-                      {isSubmitting ? "Sending..." : "Send Message"}
-                    </span>
-                  </Button>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-border">
+                    <p className="text-sm text-muted-foreground">
+                      * Accept the terms and conditions.
+                    </p>
+
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all py-4 md:py-6 px-8 text-base md:text-lg font-semibold relative overflow-hidden group min-w-[140px]"
+                      size="lg"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <Send className="mr-2 md:mr-3 h-4 w-4 md:h-5 md:w-5 relative z-10 group-hover:scale-110 transition-transform" />
+                      <span className="relative z-10">
+                        {isSubmitting ? "Sending..." : "Send Message"}
+                      </span>
+                    </Button>
+                  </div>
                 </form>
 
                 <div className="mt-4 md:mt-6 p-3 md:p-4 bg-muted/50 rounded-lg border border-border">
