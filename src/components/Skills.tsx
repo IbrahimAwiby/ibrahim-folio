@@ -98,7 +98,7 @@ export const Skills = () => {
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
@@ -155,7 +155,7 @@ export const Skills = () => {
                           animate={isInView ? { width: `${skill.level}%` } : {}}
                           transition={{
                             delay: index * 0.1 + 0.3,
-                            duration: 1,
+                            duration: 0.7,
                             ease: "easeOut",
                           }}
                           className={`absolute inset-y-0 left-0 bg-gradient-to-r ${skill.gradient} rounded-full shadow-lg`}
@@ -172,7 +172,7 @@ export const Skills = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.8, duration: 0.5 }}
+            transition={{ delay: 0.5, duration: 0.3 }}
             className="mt-16 text-center"
           >
             <Card className="max-w-4xl mx-auto p-8 glass-effect border-primary/20 shadow-glow">

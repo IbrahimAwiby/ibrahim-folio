@@ -186,7 +186,7 @@ export const Contact = () => {
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
           className="w-full"
         >
           <div className="text-center mb-16 w-full">
@@ -204,7 +204,7 @@ export const Contact = () => {
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.1 }}
               className="w-full"
             >
               <Card className="p-6 md:p-8 glass-effect border-primary/20 shadow-glow h-full w-full max-w-full">
@@ -229,7 +229,7 @@ export const Contact = () => {
 
                   {/* Phone - WhatsApp */}
                   <a
-                    href="https://wa.me/201031071411?text=Hello%20Ibrahim,%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect."
+                    href="https://wa.me/201555825248?text=Hello%20Ibrahim,%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg hover:bg-primary/10 transition-all group border border-transparent hover:border-primary/20 w-full"
@@ -242,7 +242,7 @@ export const Contact = () => {
                         Phone / WhatsApp
                       </p>
                       <p className="font-medium text-foreground text-sm md:text-base">
-                        +20 103 107 1411
+                        +20 155 582 5248
                       </p>
                     </div>
                   </a>
@@ -319,7 +319,7 @@ export const Contact = () => {
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.2 }}
               className="w-full"
             >
               <Card className="p-6 md:p-8 glass-effect border-primary/20 shadow-glow h-full w-full max-w-full">

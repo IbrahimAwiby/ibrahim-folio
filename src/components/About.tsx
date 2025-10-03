@@ -92,7 +92,7 @@ export const About = () => {
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
           className="w-full"
         >
           {/* Header Section */}
@@ -100,7 +100,7 @@ export const About = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.1 }}
               className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-2 bg-primary/10 rounded-full border border-primary/20 mb-4 md:mb-6"
             >
               <Zap className="h-3 w-3 md:h-4 md:w-4 text-primary" />
@@ -123,7 +123,7 @@ export const About = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.2 }}
             className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-16 max-w-4xl mx-auto w-full"
           >
             {stats.map((stat, index) => (
@@ -158,7 +158,7 @@ export const About = () => {
                 <motion.div
                   initial={{ opacity: 0, x: -50 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.5, duration: 0.6 }}
+                  transition={{ delay: 0.3, duration: 0.3 }}
                   className="relative p-6 md:p-8 lg:p-12 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 w-full"
                 >
                   <div className="relative w-full">
@@ -224,7 +224,7 @@ export const About = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.8 }}
+                    transition={{ delay: 0.5 }}
                     className="mt-6 md:mt-8 grid grid-cols-2 gap-3 md:gap-4 text-center max-w-xs mx-auto"
                   >
                     <div className="p-3 md:p-4 bg-white/5 rounded-xl border border-white/10">
@@ -252,7 +252,7 @@ export const About = () => {
                 <motion.div
                   initial={{ opacity: 0, x: 50 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.7, duration: 0.6 }}
+                  transition={{ delay: 0.5, duration: 0.4 }}
                   className="p-6 md:p-8 lg:p-12 w-full"
                 >
                   {/* Tab Navigation */}
@@ -279,7 +279,7 @@ export const About = () => {
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4 }}
+                        transition={{ duration: 0.2 }}
                       >
                         <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 gradient-text">
                           My Story
@@ -326,7 +326,7 @@ export const About = () => {
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4 }}
+                        transition={{ duration: 0.2 }}
                       >
                         <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 gradient-text">
                           My Expertise
@@ -423,7 +423,7 @@ export const About = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 1 }}
+                    transition={{ delay: 0.7 }}
                     className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-6 md:mt-8"
                   >
                     <a

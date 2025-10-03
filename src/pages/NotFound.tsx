@@ -95,7 +95,7 @@ const NotFound = () => {
             className="relative mb-8"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8, type: "spring" }}
+            transition={{ delay: 0.2, duration: 0.5, type: "spring" }}
           >
             <motion.h1
               className="text-8xl md:text-9xl lg:text-[12rem] font-black gradient-text mb-4"
@@ -136,14 +136,14 @@ const NotFound = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
             className="mb-8"
           >
             <motion.h2
               className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-foreground"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.3 }}
             >
               Lost in the Digital Space
             </motion.h2>
@@ -152,7 +152,7 @@ const NotFound = () => {
               className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.5 }}
             >
               The page you're looking for seems to have vanished into the void.
               Don't worry, even the best explorers sometimes take wrong turns.
@@ -162,7 +162,7 @@ const NotFound = () => {
               className="inline-flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-full border border-border mb-8"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 0.7 }}
             >
               <AlertCircle className="h-4 w-4 text-yellow-500" />
               <code className="text-sm font-mono text-muted-foreground">
@@ -175,7 +175,7 @@ const NotFound = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
+            transition={{ delay: 1, duration: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -222,7 +222,7 @@ const NotFound = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.4 }}
+            transition={{ delay: 1.1 }}
             className="max-w-2xl mx-auto"
           >
             <Card className="glass-effect border-primary/10 p-6 backdrop-blur-sm">
@@ -254,7 +254,7 @@ const NotFound = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 2 }}
+            transition={{ delay: 1.5 }}
             className="mt-12"
           >
             <motion.p

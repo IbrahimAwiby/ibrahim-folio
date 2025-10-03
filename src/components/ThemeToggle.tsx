@@ -232,7 +232,7 @@ export const ThemeToggle = () => {
           initial: { opacity: 0, y: -10 },
           hover: { opacity: 1, y: 0 },
         }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.1 }}
       >
         {theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
         {/* Tooltip arrow pointing upward */}

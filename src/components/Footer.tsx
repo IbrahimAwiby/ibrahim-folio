@@ -69,7 +69,7 @@ export const Footer = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.3 }}
               className="text-center md:text-left"
             >
               <h3 className="text-2xl font-bold gradient-text mb-4">IH</h3>
@@ -92,7 +92,7 @@ export const Footer = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
               className="text-center"
             >
               <h4 className="font-semibold mb-4 text-foreground">
@@ -122,7 +122,7 @@ export const Footer = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
               className="text-center md:text-right"
             >
               <h4 className="font-semibold mb-4 text-foreground">
@@ -162,7 +162,7 @@ export const Footer = () => {
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
               className="text-center md:text-left"
             >
               <p className="flex items-center gap-2 justify-center md:justify-start text-muted-foreground mb-2">
@@ -179,7 +179,7 @@ export const Footer = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
             >
               <Button
                 onClick={scrollToTop}
@@ -197,7 +197,7 @@ export const Footer = () => {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
             className="text-center"
           >
             <p className="text-xs text-muted-foreground max-w-2xl">

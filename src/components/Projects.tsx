@@ -86,7 +86,7 @@ export const Projects = () => {
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
@@ -104,7 +104,7 @@ export const Projects = () => {
                 key={project.title}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                transition={{ delay: index * 0.1, duration: 0.2 }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
                 <Card className="group relative overflow-hidden glass-effect border-primary/20 hover:border-primary/40 transition-all card-hover h-full flex flex-col">
@@ -178,7 +178,7 @@ export const Projects = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.8, duration: 0.5 }}
+            transition={{ delay: 0.5, duration: 0.3 }}
             className="text-center mt-16"
           >
             <Card className="max-w-2xl mx-auto p-8 glass-effect border-primary/20 shadow-glow">
