@@ -267,7 +267,7 @@ export const Contact = () => {
                     <div className="min-w-0 flex-1">
                       <p className="text-sm text-muted-foreground">Location</p>
                       <p className="font-medium text-foreground text-sm md:text-base">
-                        North Tower, Toronto, Canada
+                        Alwasta, Beni Suef, Egypt
                       </p>
                     </div>
                   </div>
