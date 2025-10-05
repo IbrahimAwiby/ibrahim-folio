@@ -1,4 +1,3 @@
-// Skills.tsx
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
@@ -16,6 +15,7 @@ import {
   FileType,
   Wind,
   LucideIcon,
+  Zap,
 } from "lucide-react";
 
 const skills: {
@@ -88,122 +88,456 @@ const skills: {
 
 export const Skills = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.08 });
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const staggerChildren = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const progressBarVariants = {
+    hidden: { width: 0 },
+    visible: (level: number) => ({
+      width: `${level}%`,
+      transition: {
+        duration: 1.2,
+        ease: "easeOut",
+        delay: 0.5,
+      },
+    }),
+  };
 
   return (
     <section id="skills" className="py-20 relative md:px-4">
       <FloatingIcons icons={skills.map((s) => s.icon)} count={15} />
+
+      {/* Animated background elements */}
+      <div className="absolute overflow-hidden inset-0">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-orange-500/5 rounded-full blur-3xl"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-56 h-56 md:w-80 md:h-80 bg-blue-500/5 rounded-full blur-3xl"
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
+        <motion.div
+          className="absolute top-3/4 left-1/2 w-48 h-48 md:w-64 md:h-64 bg-purple-500/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.3, 0.1],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+        />
+      </div>
+
       <div className="container mx-auto px-4 relative z-10">
-        <div ref={ref}>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
+        <motion.div
+          ref={ref}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={containerVariants}
+        >
+          {/* Header Section */}
+          <motion.div className="text-center mb-16" variants={itemVariants}>
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/20 mb-6"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+              >
+                <Zap className="h-4 w-4 text-primary" />
+              </motion.div>
+              <span className="text-sm font-medium text-primary">
+                Skills & Expertise
+              </span>
+            </motion.div>
+
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold mb-4 gradient-text"
+              variants={itemVariants}
+            >
               Technical Skills
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            </motion.h2>
+
+            <motion.p
+              className="text-xl text-muted-foreground max-w-2xl mx-auto"
+              variants={itemVariants}
+            >
               Here are the technologies and tools I specialize in to create
               amazing web experiences
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* Skills Grid */}
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+            variants={staggerChildren}
+          >
             {skills.map((skill, index) => {
               const Icon = skill.icon;
               return (
                 <motion.div
                   key={skill.name}
-                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                  variants={itemVariants}
+                  whileHover={{
+                    y: -8,
+                    scale: 1.02,
+                    transition: {
+                      duration: 0.3,
+                      ease: "easeOut",
+                      type: "spring",
+                      stiffness: 300,
+                    },
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  custom={index}
                 >
-                  <Card className="relative overflow-hidden p-6 glass-effect border-primary/20 hover:border-primary/40 transition-all group h-full">
-                    {/* Gradient background on hover */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${skill.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+                  <Card className="relative overflow-hidden p-6 glass-effect border-primary/20 hover:border-primary/40 transition-all group h-full cursor-pointer">
+                    {/* Animated gradient background */}
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-br ${skill.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                      whileHover={{ opacity: 0.15 }}
                     />
 
-                    {/* Icon */}
-                    <div
-                      className={`relative w-14 h-14 rounded-xl bg-gradient-to-br ${skill.gradient} p-3 mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                    {/* Animated border glow */}
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-br ${skill.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl`}
+                      whileHover={{ opacity: 1 }}
                     >
-                      <Icon className="w-full h-full text-white" />
-                    </div>
+                      <div className="absolute inset-[2px] bg-background rounded-[inherit]" />
+                    </motion.div>
 
-                    {/* Skill name */}
-                    <h3 className="relative text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                      {skill.name}
-                    </h3>
+                    {/* Floating particles */}
+                    <motion.div
+                      className={`absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-br ${skill.gradient} rounded-full opacity-0 group-hover:opacity-100`}
+                      animate={{
+                        y: [0, -8, 0],
+                        scale: [0.8, 1.2, 0.8],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        delay: index * 0.3,
+                      }}
+                    />
+                    <motion.div
+                      className={`absolute -bottom-2 -left-2 w-3 h-3 bg-gradient-to-br ${skill.gradient} rounded-full opacity-0 group-hover:opacity-100`}
+                      animate={{
+                        y: [0, 8, 0],
+                        scale: [0.6, 1.1, 0.6],
+                      }}
+                      transition={{
+                        duration: 2.5,
+                        repeat: Infinity,
+                        delay: index * 0.5,
+                      }}
+                    />
 
-                    {/* Progress bar */}
                     <div className="relative">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm text-muted-foreground">
-                          Proficiency
-                        </span>
-                        <span className="text-sm font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="relative h-2 bg-muted rounded-full overflow-hidden">
+                      {/* Icon with animation */}
+                      <motion.div
+                        className={`relative w-14 h-14 rounded-xl bg-gradient-to-br ${skill.gradient} p-3 mb-4 shadow-lg`}
+                        whileHover={{
+                          scale: 1.1,
+                          rotate: [0, -5, 5, 0],
+                          transition: { duration: 0.5 },
+                        }}
+                        whileTap={{ scale: 0.9 }}
+                        animate={{
+                          y: [0, -4, 0],
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          delay: index * 0.2,
+                        }}
+                      >
                         <motion.div
-                          initial={{ width: 0 }}
-                          animate={isInView ? { width: `${skill.level}%` } : {}}
-                          transition={{
-                            delay: index * 0.1 + 0.3,
-                            duration: 0.7,
-                            ease: "easeOut",
-                          }}
-                          className={`absolute inset-y-0 left-0 bg-gradient-to-r ${skill.gradient} rounded-full shadow-lg`}
+                          whileHover={{ rotate: 360 }}
+                          transition={{ duration: 0.6 }}
+                        >
+                          <Icon className="w-full h-full text-white" />
+                        </motion.div>
+
+                        {/* Icon glow effect */}
+                        <motion.div
+                          className={`absolute inset-0 bg-gradient-to-br ${skill.gradient} rounded-xl opacity-0 group-hover:opacity-30 blur-md`}
+                          whileHover={{ opacity: 0.4 }}
                         />
+                      </motion.div>
+
+                      {/* Skill name */}
+                      <motion.h3
+                        className="relative text-xl font-bold mb-3 group-hover:text-primary transition-colors"
+                        whileHover={{ x: 5 }}
+                      >
+                        {skill.name}
+                      </motion.h3>
+
+                      {/* Progress bar */}
+                      <div className="relative">
+                        <div className="flex justify-between items-center mb-2">
+                          <motion.span
+                            className="text-sm text-muted-foreground"
+                            whileHover={{ color: "rgb(59, 130, 246)" }}
+                          >
+                            Proficiency
+                          </motion.span>
+                          <motion.span
+                            className="text-sm font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+                            whileHover={{ scale: 1.1 }}
+                          >
+                            {skill.level}%
+                          </motion.span>
+                        </div>
+                        <div className="relative h-2 bg-muted rounded-full overflow-hidden">
+                          <motion.div
+                            variants={progressBarVariants}
+                            custom={skill.level}
+                            initial="hidden"
+                            animate={isInView ? "visible" : "hidden"}
+                            className={`absolute inset-y-0 left-0 bg-gradient-to-r ${skill.gradient} rounded-full shadow-lg relative overflow-hidden`}
+                          >
+                            {/* Shimmer effect on progress bar */}
+                            <motion.div
+                              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                              animate={{ x: [-100, 100] }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                delay: 1 + index * 0.1,
+                                ease: "easeInOut",
+                              }}
+                            />
+                          </motion.div>
+
+                          {/* Progress bar glow */}
+                          <motion.div
+                            className={`absolute inset-0 bg-gradient-to-r ${skill.gradient} rounded-full opacity-0 group-hover:opacity-20 blur-sm`}
+                            whileHover={{ opacity: 0.3 }}
+                          />
+                        </div>
+
+                        {/* Animated dots on progress track */}
+                        <div className="absolute inset-0 flex justify-between items-center px-1">
+                          {[0, 25, 50, 75, 100].map((pos) => (
+                            <motion.div
+                              key={pos}
+                              className="w-1 h-1 bg-white/30 rounded-full"
+                              animate={{
+                                opacity: [0.3, 0.7, 0.3],
+                                scale: [0.8, 1.2, 0.8],
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                delay: index * 0.1 + pos * 0.01,
+                              }}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
+
+                    {/* Level indicator pulse */}
+                    <motion.div
+                      className={`absolute bottom-2 right-2 w-3 h-3 bg-gradient-to-r ${skill.gradient} rounded-full opacity-0 group-hover:opacity-100`}
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: [0, 0.8, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: index * 0.2,
+                      }}
+                    />
                   </Card>
                 </motion.div>
               );
             })}
-          </div>
+          </motion.div>
 
           {/* Skills Summary */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.5, duration: 0.3 }}
-            className="mt-16 text-center"
-          >
-            <Card className="max-w-4xl mx-auto p-8 glass-effect border-primary/20 shadow-glow">
-              <h3 className="text-2xl font-bold mb-4 gradient-text">
-                Skills Overview
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                With expertise in modern frontend technologies, I build
-                responsive, performant web applications that provide exceptional
-                user experiences. My focus is on clean code, modern
-                architecture, and cutting-edge solutions.
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-primary">10+</div>
-                  <div className="text-sm text-muted-foreground">
-                    Technologies
-                  </div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-secondary">2+</div>
-                  <div className="text-sm text-muted-foreground">
-                    Years Experience
-                  </div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-accent">20+</div>
-                  <div className="text-sm text-muted-foreground">Projects</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-primary">90%</div>
-                  <div className="text-sm text-muted-foreground">
-                    Dedication
-                  </div>
-                </div>
+          <motion.div variants={itemVariants} className="mt-16 text-center">
+            <Card className="max-w-4xl mx-auto p-8 glass-effect border-primary/20 shadow-glow relative overflow-hidden">
+              {/* Background animation */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5"
+                animate={{
+                  backgroundPosition: ["0% 0%", "100% 100%"],
+                }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+
+              <div className="relative z-10">
+                <motion.h3
+                  className="text-2xl font-bold mb-4 gradient-text"
+                  animate={{
+                    backgroundPosition: ["0% 0%", "100% 100%"],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  Skills Overview
+                </motion.h3>
+
+                <motion.p
+                  className="text-muted-foreground mb-6"
+                  initial={{ opacity: 0.8 }}
+                  whileHover={{ opacity: 1 }}
+                >
+                  With expertise in modern frontend technologies, I build
+                  responsive, performant web applications that provide
+                  exceptional user experiences. My focus is on clean code,
+                  modern architecture, and cutting-edge solutions.
+                </motion.p>
+
+                <motion.div
+                  className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center"
+                  variants={staggerChildren}
+                >
+                  {[
+                    {
+                      number: "10+",
+                      label: "Technologies",
+                      color: "text-primary",
+                    },
+                    {
+                      number: "2+",
+                      label: "Years Experience",
+                      color: "text-secondary",
+                    },
+                    { number: "20+", label: "Projects", color: "text-accent" },
+                    {
+                      number: "90%",
+                      label: "Dedication",
+                      color: "text-primary",
+                    },
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={stat.label}
+                      className="p-4 bg-white/5 rounded-xl border border-white/10"
+                      whileHover={{
+                        scale: 1.05,
+                        y: -2,
+                        borderColor: "rgba(59, 130, 246, 0.3)",
+                      }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <motion.div
+                        className={`text-2xl font-bold ${stat.color} mb-1`}
+                        animate={{
+                          scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          delay: index * 0.5,
+                        }}
+                      >
+                        {stat.number}
+                      </motion.div>
+                      <div className="text-sm text-muted-foreground">
+                        {stat.label}
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
               </div>
+
+              {/* Floating elements */}
+              <motion.div
+                className="absolute top-4 left-4 w-6 h-6 bg-primary/10 rounded-full"
+                animate={{
+                  y: [0, -8, 0],
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                }}
+              />
+              <motion.div
+                className="absolute bottom-4 right-4 w-4 h-4 bg-secondary/10 rounded-full"
+                animate={{
+                  y: [0, 8, 0],
+                  scale: [1, 1.3, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: 1,
+                }}
+              />
             </Card>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
