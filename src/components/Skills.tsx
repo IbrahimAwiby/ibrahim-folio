@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { FloatingIcons } from "@/components/FloatingIcons";
 import {
@@ -16,9 +16,17 @@ import {
   Wind,
   LucideIcon,
   Zap,
+  Users,
+  MessageCircle,
+  Lightbulb,
+  Clock,
+  Target,
+  HeartHandshake,
+  Brain,
+  Sparkles,
 } from "lucide-react";
 
-const skills: {
+const technicalSkills: {
   name: string;
   level: number;
   gradient: string;
@@ -86,9 +94,77 @@ const skills: {
   },
 ];
 
+const softSkills: {
+  name: string;
+  level: number;
+  gradient: string;
+  icon: LucideIcon;
+  description: string;
+}[] = [
+  {
+    name: "Communication",
+    level: 90,
+    gradient: "from-green-500 to-green-600",
+    icon: MessageCircle,
+    description: "Clear and effective team collaboration",
+  },
+  {
+    name: "Teamwork",
+    level: 88,
+    gradient: "from-blue-500 to-blue-600",
+    icon: Users,
+    description: "Collaborative problem solving",
+  },
+  {
+    name: "Problem Solving",
+    level: 92,
+    gradient: "from-purple-500 to-purple-600",
+    icon: Lightbulb,
+    description: "Creative solution development",
+  },
+  {
+    name: "Time Management",
+    level: 85,
+    gradient: "from-amber-500 to-amber-600",
+    icon: Clock,
+    description: "Efficient task prioritization",
+  },
+  {
+    name: "Adaptability",
+    level: 87,
+    gradient: "from-rose-500 to-rose-600",
+    icon: Sparkles,
+    description: "Quick learning and flexibility",
+  },
+  {
+    name: "Leadership",
+    level: 82,
+    gradient: "from-indigo-500 to-indigo-600",
+    icon: Target,
+    description: "Project guidance and mentoring",
+  },
+  {
+    name: "Empathy",
+    level: 89,
+    gradient: "from-pink-500 to-pink-600",
+    icon: HeartHandshake,
+    description: "User-focused design thinking",
+  },
+  {
+    name: "Critical Thinking",
+    level: 91,
+    gradient: "from-cyan-500 to-cyan-600",
+    icon: Brain,
+    description: "Analytical decision making",
+  },
+];
+
+type TabType = "technical" | "soft";
+
 export const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.08 });
+  const [activeTab, setActiveTab] = useState<TabType>("technical");
 
   // Animation variants
   const containerVariants = {
@@ -137,9 +213,35 @@ export const Skills = () => {
     }),
   };
 
+  const tabContentVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.3,
+        ease: "easeIn",
+      },
+    },
+  };
+
+  const currentSkills =
+    activeTab === "technical" ? technicalSkills : softSkills;
+
   return (
     <section id="skills" className="py-20 relative md:px-4">
-      <FloatingIcons icons={skills.map((s) => s.icon)} count={15} />
+      <FloatingIcons
+        icons={[...technicalSkills, ...softSkills].map((s) => s.icon)}
+        count={20}
+      />
 
       {/* Animated background elements */}
       <div className="absolute overflow-hidden inset-0">
@@ -214,24 +316,76 @@ export const Skills = () => {
               className="text-4xl md:text-5xl font-bold mb-4 gradient-text"
               variants={itemVariants}
             >
-              Technical Skills
+              Technical & Soft Skills
             </motion.h2>
 
             <motion.p
               className="text-xl text-muted-foreground max-w-2xl mx-auto"
               variants={itemVariants}
             >
-              Here are the technologies and tools I specialize in to create
-              amazing web experiences
+              A balanced combination of technical expertise and interpersonal
+              skills to deliver exceptional results
             </motion.p>
+          </motion.div>
+
+          {/* Tab Navigation */}
+          <motion.div
+            className="flex justify-center mb-12"
+            variants={itemVariants}
+          >
+            <div className="bg-muted/50 rounded-2xl p-2 border border-border/50 backdrop-blur-sm">
+              <div className="flex gap-2">
+                {[
+                  {
+                    id: "technical" as TabType,
+                    label: "Technical Skills",
+                    icon: Code,
+                  },
+                  { id: "soft" as TabType, label: "Soft Skills", icon: Users },
+                ].map((tab) => {
+                  const Icon = tab.icon;
+                  return (
+                    <motion.button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`relative px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${
+                        activeTab === tab.id
+                          ? "text-white"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {activeTab === tab.id && (
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-xl"
+                          layoutId="activeTab"
+                          transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                      <Icon className="w-4 h-4 relative z-10" />
+                      <span className="relative z-10">{tab.label}</span>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
 
           {/* Skills Grid */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
-            variants={staggerChildren}
+            key={activeTab}
+            variants={tabContentVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto"
           >
-            {skills.map((skill, index) => {
+            {currentSkills.map((skill, index) => {
               const Icon = skill.icon;
               return (
                 <motion.div
@@ -326,11 +480,22 @@ export const Skills = () => {
 
                       {/* Skill name */}
                       <motion.h3
-                        className="relative text-xl font-bold mb-3 group-hover:text-primary transition-colors"
+                        className="relative text-xl font-bold mb-2 group-hover:text-primary transition-colors"
                         whileHover={{ x: 5 }}
                       >
                         {skill.name}
                       </motion.h3>
+
+                      {/* Skill description for soft skills */}
+                      {"description" in skill && (
+                        <motion.p
+                          className="text-sm text-muted-foreground mb-3 leading-relaxed"
+                          initial={{ opacity: 0.8 }}
+                          whileHover={{ opacity: 1 }}
+                        >
+                          {skill.description}
+                        </motion.p>
+                      )}
 
                       {/* Progress bar */}
                       <div className="relative">
@@ -444,7 +609,7 @@ export const Skills = () => {
                     ease: "linear",
                   }}
                 >
-                  Skills Overview
+                  Complete Skills Overview
                 </motion.h3>
 
                 <motion.p
@@ -452,10 +617,10 @@ export const Skills = () => {
                   initial={{ opacity: 0.8 }}
                   whileHover={{ opacity: 1 }}
                 >
-                  With expertise in modern frontend technologies, I build
-                  responsive, performant web applications that provide
-                  exceptional user experiences. My focus is on clean code,
-                  modern architecture, and cutting-edge solutions.
+                  Combining technical expertise with strong interpersonal skills
+                  to deliver comprehensive solutions. I believe great
+                  development is about both writing clean code and collaborating
+                  effectively.
                 </motion.p>
 
                 <motion.div
@@ -464,19 +629,23 @@ export const Skills = () => {
                 >
                   {[
                     {
-                      number: "10+",
-                      label: "Technologies",
+                      number: `${technicalSkills.length}+`,
+                      label: "Tech Skills",
                       color: "text-primary",
                     },
                     {
-                      number: "2+",
-                      label: "Years Experience",
+                      number: `${softSkills.length}+`,
+                      label: "Soft Skills",
                       color: "text-secondary",
                     },
-                    { number: "20+", label: "Projects", color: "text-accent" },
+                    {
+                      number: "20+",
+                      label: "Projects",
+                      color: "text-accent",
+                    },
                     {
                       number: "90%",
-                      label: "Dedication",
+                      label: "Overall Rating",
                       color: "text-primary",
                     },
                   ].map((stat, index) => (
